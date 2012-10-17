@@ -130,7 +130,7 @@ so-subtarget:
 	 prefix=$(prefix)
 	$(MAKE) $(SODEFS) GENOPT='$(GENOPT)' LDFLAGS='$(LDFLAGS)'\
 	 CFLAGS='$(CFLAGS_STANDARD) $(GCFLAGS) $(AC_CFLAGS) $(XCFLAGS)' prefix=$(prefix)\
-	 $(GSSOC_XE) $(GSSOX_XE) CC='$(CC) -ldl -lm -lpthread -lcupsimage -lcups'
+	 $(GSSOC_XE) $(GSSOX_XE) CC='$(CC) -ldl -lm -lresolv -lpthread -lcupsimage -lcups'
 
 # special so-subtarget for MAC OS X
 so-subtarget_1:
