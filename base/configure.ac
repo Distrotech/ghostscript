@@ -340,6 +340,14 @@ if test x$build_alias != x; then
 SUBCONFIG_OPTS="$SUBCONFIG_OPTS --build=$build_alias"
 fi
 
+if test x$host_alias != x; then
+SUBCONFIG_OPTS="$SUBCONFIG_OPTS --host=$host_alias"
+fi
+
+if test x$cross_compiling != x; then
+SUBCONFIG_OPTS="$SUBCONFIG_OPTS cross_compiling=$cross_compiling"
+fi
+
 
 dnl --------------------------------------------------
 dnl Check for libraries
@@ -1807,24 +1815,16 @@ dnl --------------------------------------------------
 dnl check for big/little endian for LCMS
 dnl --------------------------------------------------
 
-AC_MSG_CHECKING([for big endian])
-
-AC_RUN_IFELSE(
-  [AC_LANG_PROGRAM([#include <stdio.h>], [
-   static const int one = 1;
-   return (*(char*)&one == 0 ? 0 : 1);
-  ])],
+AC_C_BIGENDIAN(
   [LCMS_BIGENDIAN=1],
   [LCMS_BIGENDIAN=0])
 
 if test "x$LCMS_BIGENDIAN" != "x0"; then
   LCMS_ENDIAN="-DUSE_BIG_ENDIAN=$LCMS_BIGENDIAN"
   LCMS2_ENDIAN="-DCMS_USE_BIG_ENDIAN=$LCMS_BIGENDIAN"
-  AC_MSG_RESULT(yes)
 else
   LCMS_ENDIAN=
   LCMS2_ENDIAN=
-  AC_MSG_RESULT(no)
 fi
 
 
