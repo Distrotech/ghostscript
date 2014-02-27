@@ -257,30 +257,14 @@ dnl ----------------------------
 
 BIGENDIAN=
 
-AC_MSG_CHECKING([for big endian])
+AC_C_BIGENDIAN(
+   [BIGENDIAN=1],
+   [BIGENDIAN=0])
 
-AC_ARG_ENABLE([big-endian], AC_HELP_STRING([--enable-big-endian],
-    [Force big endian]), [BIGENDIAN=1])
-
-if test x$BIGENDIAN = x; then
-  AC_ARG_ENABLE([little-endian], AC_HELP_STRING([--enable-little-endian],
-      [Force little endian]), [BIGENDIAN=0])
-fi
-
-if test x$BIGENDIAN = x ; then
-  AC_RUN_IFELSE(
-    [AC_LANG_PROGRAM([#include <stdio.h>], [
-     static const int one = 1;
-     return (*(char*)&one == 0 ? 0 : 1);
-    ])],
-    [BIGENDIAN=1;AC_MSG_RESULT(big)],
-    [BIGENDIAN=0;AC_MSG_RESULT(little)])
-else
-  if test x$BIGENDIAN = x1 ; then
-    AC_MSG_RESULT(big)
-  else
-    AC_MSG_RESULT(little)
-  fi
+if test x$BIGENDIAN = x1 ; then
+  AC_MSG_RESULT(yes)
+ else
+  AC_MSG_RESULT(no)
 fi
 
 dnl --------------------------------------------------
@@ -449,6 +433,14 @@ if test x$build_alias != x; then
 SUBCONFIG_OPTS="$SUBCONFIG_OPTS --build=$build_alias"
 fi
 
+
+if test x$host_alias != x; then
+SUBCONFIG_OPTS="$SUBCONFIG_OPTS --host=$host_alias"
+fi
+
+if test x$cross_compiling != x; then
+SUBCONFIG_OPTS="$SUBCONFIG_OPTS cross_compiling=$cross_compiling"
+fi
 
 dnl --------------------------------------------------
 dnl Check for libraries
