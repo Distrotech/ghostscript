@@ -320,7 +320,7 @@ RANLIB=@RANLIB@
 # Define the name of the C compiler (target and host (AUX))
 
 CC=@CC@
-CCAUX=@CC@
+CCAUX= gcc
 
 # Define the name of the linker for the final link step.
 # Normally this is the same as the C compiler.
